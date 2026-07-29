@@ -9,38 +9,248 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as DashboardWorldsRouteImport } from './routes/dashboard.worlds'
+import { Route as DashboardStoriesRouteImport } from './routes/dashboard.stories'
+import { Route as DashboardSettingsRouteImport } from './routes/dashboard.settings'
+import { Route as DashboardProfileRouteImport } from './routes/dashboard.profile'
+import { Route as DashboardInteractiveRouteImport } from './routes/dashboard.interactive'
+import { Route as DashboardImagesRouteImport } from './routes/dashboard.images'
+import { Route as DashboardHistoryRouteImport } from './routes/dashboard.history'
+import { Route as DashboardFavoritesRouteImport } from './routes/dashboard.favorites'
+import { Route as DashboardDialoguesRouteImport } from './routes/dashboard.dialogues'
+import { Route as DashboardComicsRouteImport } from './routes/dashboard.comics'
+import { Route as DashboardCharactersRouteImport } from './routes/dashboard.characters'
+import { Route as DashboardBillingRouteImport } from './routes/dashboard.billing'
+import { Route as DashboardAudiobooksRouteImport } from './routes/dashboard.audiobooks'
 
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardWorldsRoute = DashboardWorldsRouteImport.update({
+  id: '/worlds',
+  path: '/worlds',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardStoriesRoute = DashboardStoriesRouteImport.update({
+  id: '/stories',
+  path: '/stories',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardProfileRoute = DashboardProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardInteractiveRoute = DashboardInteractiveRouteImport.update({
+  id: '/interactive',
+  path: '/interactive',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardImagesRoute = DashboardImagesRouteImport.update({
+  id: '/images',
+  path: '/images',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardHistoryRoute = DashboardHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardFavoritesRoute = DashboardFavoritesRouteImport.update({
+  id: '/favorites',
+  path: '/favorites',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardDialoguesRoute = DashboardDialoguesRouteImport.update({
+  id: '/dialogues',
+  path: '/dialogues',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardComicsRoute = DashboardComicsRouteImport.update({
+  id: '/comics',
+  path: '/comics',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardCharactersRoute = DashboardCharactersRouteImport.update({
+  id: '/characters',
+  path: '/characters',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardBillingRoute = DashboardBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardAudiobooksRoute = DashboardAudiobooksRouteImport.update({
+  id: '/audiobooks',
+  path: '/audiobooks',
+  getParentRoute: () => DashboardRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/dashboard/audiobooks': typeof DashboardAudiobooksRoute
+  '/dashboard/billing': typeof DashboardBillingRoute
+  '/dashboard/characters': typeof DashboardCharactersRoute
+  '/dashboard/comics': typeof DashboardComicsRoute
+  '/dashboard/dialogues': typeof DashboardDialoguesRoute
+  '/dashboard/favorites': typeof DashboardFavoritesRoute
+  '/dashboard/history': typeof DashboardHistoryRoute
+  '/dashboard/images': typeof DashboardImagesRoute
+  '/dashboard/interactive': typeof DashboardInteractiveRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/stories': typeof DashboardStoriesRoute
+  '/dashboard/worlds': typeof DashboardWorldsRoute
+  '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/dashboard/audiobooks': typeof DashboardAudiobooksRoute
+  '/dashboard/billing': typeof DashboardBillingRoute
+  '/dashboard/characters': typeof DashboardCharactersRoute
+  '/dashboard/comics': typeof DashboardComicsRoute
+  '/dashboard/dialogues': typeof DashboardDialoguesRoute
+  '/dashboard/favorites': typeof DashboardFavoritesRoute
+  '/dashboard/history': typeof DashboardHistoryRoute
+  '/dashboard/images': typeof DashboardImagesRoute
+  '/dashboard/interactive': typeof DashboardInteractiveRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/stories': typeof DashboardStoriesRoute
+  '/dashboard/worlds': typeof DashboardWorldsRoute
+  '/dashboard': typeof DashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/dashboard/audiobooks': typeof DashboardAudiobooksRoute
+  '/dashboard/billing': typeof DashboardBillingRoute
+  '/dashboard/characters': typeof DashboardCharactersRoute
+  '/dashboard/comics': typeof DashboardComicsRoute
+  '/dashboard/dialogues': typeof DashboardDialoguesRoute
+  '/dashboard/favorites': typeof DashboardFavoritesRoute
+  '/dashboard/history': typeof DashboardHistoryRoute
+  '/dashboard/images': typeof DashboardImagesRoute
+  '/dashboard/interactive': typeof DashboardInteractiveRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/stories': typeof DashboardStoriesRoute
+  '/dashboard/worlds': typeof DashboardWorldsRoute
+  '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/dashboard/audiobooks'
+    | '/dashboard/billing'
+    | '/dashboard/characters'
+    | '/dashboard/comics'
+    | '/dashboard/dialogues'
+    | '/dashboard/favorites'
+    | '/dashboard/history'
+    | '/dashboard/images'
+    | '/dashboard/interactive'
+    | '/dashboard/profile'
+    | '/dashboard/settings'
+    | '/dashboard/stories'
+    | '/dashboard/worlds'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/dashboard/audiobooks'
+    | '/dashboard/billing'
+    | '/dashboard/characters'
+    | '/dashboard/comics'
+    | '/dashboard/dialogues'
+    | '/dashboard/favorites'
+    | '/dashboard/history'
+    | '/dashboard/images'
+    | '/dashboard/interactive'
+    | '/dashboard/profile'
+    | '/dashboard/settings'
+    | '/dashboard/stories'
+    | '/dashboard/worlds'
+    | '/dashboard'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/dashboard/audiobooks'
+    | '/dashboard/billing'
+    | '/dashboard/characters'
+    | '/dashboard/comics'
+    | '/dashboard/dialogues'
+    | '/dashboard/favorites'
+    | '/dashboard/history'
+    | '/dashboard/images'
+    | '/dashboard/interactive'
+    | '/dashboard/profile'
+    | '/dashboard/settings'
+    | '/dashboard/stories'
+    | '/dashboard/worlds'
+    | '/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +258,150 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/worlds': {
+      id: '/dashboard/worlds'
+      path: '/worlds'
+      fullPath: '/dashboard/worlds'
+      preLoaderRoute: typeof DashboardWorldsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/stories': {
+      id: '/dashboard/stories'
+      path: '/stories'
+      fullPath: '/dashboard/stories'
+      preLoaderRoute: typeof DashboardStoriesRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/settings': {
+      id: '/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardSettingsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/profile': {
+      id: '/dashboard/profile'
+      path: '/profile'
+      fullPath: '/dashboard/profile'
+      preLoaderRoute: typeof DashboardProfileRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/interactive': {
+      id: '/dashboard/interactive'
+      path: '/interactive'
+      fullPath: '/dashboard/interactive'
+      preLoaderRoute: typeof DashboardInteractiveRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/images': {
+      id: '/dashboard/images'
+      path: '/images'
+      fullPath: '/dashboard/images'
+      preLoaderRoute: typeof DashboardImagesRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/history': {
+      id: '/dashboard/history'
+      path: '/history'
+      fullPath: '/dashboard/history'
+      preLoaderRoute: typeof DashboardHistoryRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/favorites': {
+      id: '/dashboard/favorites'
+      path: '/favorites'
+      fullPath: '/dashboard/favorites'
+      preLoaderRoute: typeof DashboardFavoritesRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/dialogues': {
+      id: '/dashboard/dialogues'
+      path: '/dialogues'
+      fullPath: '/dashboard/dialogues'
+      preLoaderRoute: typeof DashboardDialoguesRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/comics': {
+      id: '/dashboard/comics'
+      path: '/comics'
+      fullPath: '/dashboard/comics'
+      preLoaderRoute: typeof DashboardComicsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/characters': {
+      id: '/dashboard/characters'
+      path: '/characters'
+      fullPath: '/dashboard/characters'
+      preLoaderRoute: typeof DashboardCharactersRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/billing': {
+      id: '/dashboard/billing'
+      path: '/billing'
+      fullPath: '/dashboard/billing'
+      preLoaderRoute: typeof DashboardBillingRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/audiobooks': {
+      id: '/dashboard/audiobooks'
+      path: '/audiobooks'
+      fullPath: '/dashboard/audiobooks'
+      preLoaderRoute: typeof DashboardAudiobooksRouteImport
+      parentRoute: typeof DashboardRoute
+    }
   }
 }
 
+interface DashboardRouteChildren {
+  DashboardAudiobooksRoute: typeof DashboardAudiobooksRoute
+  DashboardBillingRoute: typeof DashboardBillingRoute
+  DashboardCharactersRoute: typeof DashboardCharactersRoute
+  DashboardComicsRoute: typeof DashboardComicsRoute
+  DashboardDialoguesRoute: typeof DashboardDialoguesRoute
+  DashboardFavoritesRoute: typeof DashboardFavoritesRoute
+  DashboardHistoryRoute: typeof DashboardHistoryRoute
+  DashboardImagesRoute: typeof DashboardImagesRoute
+  DashboardInteractiveRoute: typeof DashboardInteractiveRoute
+  DashboardProfileRoute: typeof DashboardProfileRoute
+  DashboardSettingsRoute: typeof DashboardSettingsRoute
+  DashboardStoriesRoute: typeof DashboardStoriesRoute
+  DashboardWorldsRoute: typeof DashboardWorldsRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardAudiobooksRoute: DashboardAudiobooksRoute,
+  DashboardBillingRoute: DashboardBillingRoute,
+  DashboardCharactersRoute: DashboardCharactersRoute,
+  DashboardComicsRoute: DashboardComicsRoute,
+  DashboardDialoguesRoute: DashboardDialoguesRoute,
+  DashboardFavoritesRoute: DashboardFavoritesRoute,
+  DashboardHistoryRoute: DashboardHistoryRoute,
+  DashboardImagesRoute: DashboardImagesRoute,
+  DashboardInteractiveRoute: DashboardInteractiveRoute,
+  DashboardProfileRoute: DashboardProfileRoute,
+  DashboardSettingsRoute: DashboardSettingsRoute,
+  DashboardStoriesRoute: DashboardStoriesRoute,
+  DashboardWorldsRoute: DashboardWorldsRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
+  DashboardRoute: DashboardRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
