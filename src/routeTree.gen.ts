@@ -26,6 +26,8 @@ import { Route as DashboardComicsRouteImport } from './routes/dashboard.comics'
 import { Route as DashboardCharactersRouteImport } from './routes/dashboard.characters'
 import { Route as DashboardBillingRouteImport } from './routes/dashboard.billing'
 import { Route as DashboardAudiobooksRouteImport } from './routes/dashboard.audiobooks'
+import { Route as ApiGenerateStoryRouteImport } from './routes/api/generate-story'
+import { Route as DashboardStoriesStoryIdRouteImport } from './routes/dashboard.stories.$storyId'
 
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
@@ -112,11 +114,22 @@ const DashboardAudiobooksRoute = DashboardAudiobooksRouteImport.update({
   path: '/audiobooks',
   getParentRoute: () => DashboardRoute,
 } as any)
+const ApiGenerateStoryRoute = ApiGenerateStoryRouteImport.update({
+  id: '/api/generate-story',
+  path: '/api/generate-story',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardStoriesStoryIdRoute = DashboardStoriesStoryIdRouteImport.update({
+  id: '/$storyId',
+  path: '/$storyId',
+  getParentRoute: () => DashboardStoriesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRouteWithChildren
+  '/api/generate-story': typeof ApiGenerateStoryRoute
   '/dashboard/audiobooks': typeof DashboardAudiobooksRoute
   '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/characters': typeof DashboardCharactersRoute
@@ -128,13 +141,15 @@ export interface FileRoutesByFullPath {
   '/dashboard/interactive': typeof DashboardInteractiveRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/stories': typeof DashboardStoriesRoute
+  '/dashboard/stories': typeof DashboardStoriesRouteWithChildren
   '/dashboard/worlds': typeof DashboardWorldsRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/stories/$storyId': typeof DashboardStoriesStoryIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/api/generate-story': typeof ApiGenerateStoryRoute
   '/dashboard/audiobooks': typeof DashboardAudiobooksRoute
   '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/characters': typeof DashboardCharactersRoute
@@ -146,15 +161,17 @@ export interface FileRoutesByTo {
   '/dashboard/interactive': typeof DashboardInteractiveRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/stories': typeof DashboardStoriesRoute
+  '/dashboard/stories': typeof DashboardStoriesRouteWithChildren
   '/dashboard/worlds': typeof DashboardWorldsRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/stories/$storyId': typeof DashboardStoriesStoryIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRouteWithChildren
+  '/api/generate-story': typeof ApiGenerateStoryRoute
   '/dashboard/audiobooks': typeof DashboardAudiobooksRoute
   '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/characters': typeof DashboardCharactersRoute
@@ -166,9 +183,10 @@ export interface FileRoutesById {
   '/dashboard/interactive': typeof DashboardInteractiveRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/stories': typeof DashboardStoriesRoute
+  '/dashboard/stories': typeof DashboardStoriesRouteWithChildren
   '/dashboard/worlds': typeof DashboardWorldsRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/stories/$storyId': typeof DashboardStoriesStoryIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -176,6 +194,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/api/generate-story'
     | '/dashboard/audiobooks'
     | '/dashboard/billing'
     | '/dashboard/characters'
@@ -190,10 +209,12 @@ export interface FileRouteTypes {
     | '/dashboard/stories'
     | '/dashboard/worlds'
     | '/dashboard/'
+    | '/dashboard/stories/$storyId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
+    | '/api/generate-story'
     | '/dashboard/audiobooks'
     | '/dashboard/billing'
     | '/dashboard/characters'
@@ -208,11 +229,13 @@ export interface FileRouteTypes {
     | '/dashboard/stories'
     | '/dashboard/worlds'
     | '/dashboard'
+    | '/dashboard/stories/$storyId'
   id:
     | '__root__'
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/api/generate-story'
     | '/dashboard/audiobooks'
     | '/dashboard/billing'
     | '/dashboard/characters'
@@ -227,12 +250,14 @@ export interface FileRouteTypes {
     | '/dashboard/stories'
     | '/dashboard/worlds'
     | '/dashboard/'
+    | '/dashboard/stories/$storyId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   DashboardRoute: typeof DashboardRouteWithChildren
+  ApiGenerateStoryRoute: typeof ApiGenerateStoryRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -356,8 +381,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardAudiobooksRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/api/generate-story': {
+      id: '/api/generate-story'
+      path: '/api/generate-story'
+      fullPath: '/api/generate-story'
+      preLoaderRoute: typeof ApiGenerateStoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/stories/$storyId': {
+      id: '/dashboard/stories/$storyId'
+      path: '/$storyId'
+      fullPath: '/dashboard/stories/$storyId'
+      preLoaderRoute: typeof DashboardStoriesStoryIdRouteImport
+      parentRoute: typeof DashboardStoriesRoute
+    }
   }
 }
+
+interface DashboardStoriesRouteChildren {
+  DashboardStoriesStoryIdRoute: typeof DashboardStoriesStoryIdRoute
+}
+
+const DashboardStoriesRouteChildren: DashboardStoriesRouteChildren = {
+  DashboardStoriesStoryIdRoute: DashboardStoriesStoryIdRoute,
+}
+
+const DashboardStoriesRouteWithChildren =
+  DashboardStoriesRoute._addFileChildren(DashboardStoriesRouteChildren)
 
 interface DashboardRouteChildren {
   DashboardAudiobooksRoute: typeof DashboardAudiobooksRoute
@@ -371,7 +421,7 @@ interface DashboardRouteChildren {
   DashboardInteractiveRoute: typeof DashboardInteractiveRoute
   DashboardProfileRoute: typeof DashboardProfileRoute
   DashboardSettingsRoute: typeof DashboardSettingsRoute
-  DashboardStoriesRoute: typeof DashboardStoriesRoute
+  DashboardStoriesRoute: typeof DashboardStoriesRouteWithChildren
   DashboardWorldsRoute: typeof DashboardWorldsRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
@@ -388,7 +438,7 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardInteractiveRoute: DashboardInteractiveRoute,
   DashboardProfileRoute: DashboardProfileRoute,
   DashboardSettingsRoute: DashboardSettingsRoute,
-  DashboardStoriesRoute: DashboardStoriesRoute,
+  DashboardStoriesRoute: DashboardStoriesRouteWithChildren,
   DashboardWorldsRoute: DashboardWorldsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
 }
@@ -401,6 +451,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   DashboardRoute: DashboardRouteWithChildren,
+  ApiGenerateStoryRoute: ApiGenerateStoryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
