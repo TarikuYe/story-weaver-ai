@@ -14,6 +14,50 @@ export type Database = {
   }
   public: {
     Tables: {
+      chapters: {
+        Row: {
+          chapter_number: number
+          content: string
+          created_at: string
+          id: string
+          story_id: string
+          title: string
+          updated_at: string
+          user_id: string
+          word_count: number
+        }
+        Insert: {
+          chapter_number: number
+          content?: string
+          created_at?: string
+          id?: string
+          story_id: string
+          title: string
+          updated_at?: string
+          user_id: string
+          word_count?: number
+        }
+        Update: {
+          chapter_number?: number
+          content?: string
+          created_at?: string
+          id?: string
+          story_id?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+          word_count?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chapters_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "stories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -47,6 +91,57 @@ export type Database = {
           language?: string
           updated_at?: string
           username?: string | null
+        }
+        Relationships: []
+      }
+      stories: {
+        Row: {
+          characters: string | null
+          cover_image_url: string | null
+          created_at: string
+          genre: string | null
+          id: string
+          language: string
+          length: string
+          outline: Json | null
+          prompt: string
+          status: string
+          title: string
+          tone: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          characters?: string | null
+          cover_image_url?: string | null
+          created_at?: string
+          genre?: string | null
+          id?: string
+          language?: string
+          length?: string
+          outline?: Json | null
+          prompt: string
+          status?: string
+          title?: string
+          tone?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          characters?: string | null
+          cover_image_url?: string | null
+          created_at?: string
+          genre?: string | null
+          id?: string
+          language?: string
+          length?: string
+          outline?: Json | null
+          prompt?: string
+          status?: string
+          title?: string
+          tone?: string | null
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
