@@ -9,29 +9,37 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
-import { Route as DashboardWorldsRouteImport } from './routes/dashboard.worlds'
-import { Route as DashboardStoriesRouteImport } from './routes/dashboard.stories'
-import { Route as DashboardSettingsRouteImport } from './routes/dashboard.settings'
-import { Route as DashboardProfileRouteImport } from './routes/dashboard.profile'
-import { Route as DashboardInteractiveRouteImport } from './routes/dashboard.interactive'
-import { Route as DashboardImagesRouteImport } from './routes/dashboard.images'
-import { Route as DashboardHistoryRouteImport } from './routes/dashboard.history'
-import { Route as DashboardFavoritesRouteImport } from './routes/dashboard.favorites'
-import { Route as DashboardDialoguesRouteImport } from './routes/dashboard.dialogues'
-import { Route as DashboardComicsRouteImport } from './routes/dashboard.comics'
-import { Route as DashboardCharactersRouteImport } from './routes/dashboard.characters'
-import { Route as DashboardBillingRouteImport } from './routes/dashboard.billing'
-import { Route as DashboardAudiobooksRouteImport } from './routes/dashboard.audiobooks'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ApiGenerateAudiobookRouteImport } from './routes/api/generate-audiobook'
+import { Route as ApiGenerateCharacterRouteImport } from './routes/api/generate-character'
+import { Route as ApiGenerateComicRouteImport } from './routes/api/generate-comic'
+import { Route as ApiGenerateDialogueRouteImport } from './routes/api/generate-dialogue'
+import { Route as ApiGenerateInteractiveRouteImport } from './routes/api/generate-interactive'
 import { Route as ApiGenerateStoryRouteImport } from './routes/api/generate-story'
+import { Route as ApiGenerateWorldRouteImport } from './routes/api/generate-world'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as DashboardAudiobooksRouteImport } from './routes/dashboard.audiobooks'
+import { Route as DashboardBillingRouteImport } from './routes/dashboard.billing'
+import { Route as DashboardCharactersRouteImport } from './routes/dashboard.characters'
+import { Route as DashboardComicsRouteImport } from './routes/dashboard.comics'
+import { Route as DashboardDialoguesRouteImport } from './routes/dashboard.dialogues'
+import { Route as DashboardFavoritesRouteImport } from './routes/dashboard.favorites'
+import { Route as DashboardHistoryRouteImport } from './routes/dashboard.history'
+import { Route as DashboardImagesRouteImport } from './routes/dashboard.images'
+import { Route as DashboardInteractiveRouteImport } from './routes/dashboard.interactive'
+import { Route as DashboardProfileRouteImport } from './routes/dashboard.profile'
+import { Route as DashboardSearchRouteImport } from './routes/dashboard.search'
+import { Route as DashboardSettingsRouteImport } from './routes/dashboard.settings'
+import { Route as DashboardTemplatesRouteImport } from './routes/dashboard.templates'
+import { Route as DashboardWorldsRouteImport } from './routes/dashboard.worlds'
+import { Route as DashboardStoriesIndexRouteImport } from './routes/dashboard.stories.index'
 import { Route as DashboardStoriesStoryIdRouteImport } from './routes/dashboard.stories.$storyId'
 
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -39,9 +47,44 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGenerateAudiobookRoute = ApiGenerateAudiobookRouteImport.update({
+  id: '/api/generate-audiobook',
+  path: '/api/generate-audiobook',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGenerateCharacterRoute = ApiGenerateCharacterRouteImport.update({
+  id: '/api/generate-character',
+  path: '/api/generate-character',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGenerateComicRoute = ApiGenerateComicRouteImport.update({
+  id: '/api/generate-comic',
+  path: '/api/generate-comic',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGenerateDialogueRoute = ApiGenerateDialogueRouteImport.update({
+  id: '/api/generate-dialogue',
+  path: '/api/generate-dialogue',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGenerateInteractiveRoute = ApiGenerateInteractiveRouteImport.update({
+  id: '/api/generate-interactive',
+  path: '/api/generate-interactive',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGenerateStoryRoute = ApiGenerateStoryRouteImport.update({
+  id: '/api/generate-story',
+  path: '/api/generate-story',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGenerateWorldRoute = ApiGenerateWorldRouteImport.update({
+  id: '/api/generate-world',
+  path: '/api/generate-world',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
@@ -49,59 +92,9 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardRoute,
 } as any)
-const DashboardWorldsRoute = DashboardWorldsRouteImport.update({
-  id: '/worlds',
-  path: '/worlds',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardStoriesRoute = DashboardStoriesRouteImport.update({
-  id: '/stories',
-  path: '/stories',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardProfileRoute = DashboardProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardInteractiveRoute = DashboardInteractiveRouteImport.update({
-  id: '/interactive',
-  path: '/interactive',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardImagesRoute = DashboardImagesRouteImport.update({
-  id: '/images',
-  path: '/images',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardHistoryRoute = DashboardHistoryRouteImport.update({
-  id: '/history',
-  path: '/history',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardFavoritesRoute = DashboardFavoritesRouteImport.update({
-  id: '/favorites',
-  path: '/favorites',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardDialoguesRoute = DashboardDialoguesRouteImport.update({
-  id: '/dialogues',
-  path: '/dialogues',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardComicsRoute = DashboardComicsRouteImport.update({
-  id: '/comics',
-  path: '/comics',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardCharactersRoute = DashboardCharactersRouteImport.update({
-  id: '/characters',
-  path: '/characters',
+const DashboardAudiobooksRoute = DashboardAudiobooksRouteImport.update({
+  id: '/audiobooks',
+  path: '/audiobooks',
   getParentRoute: () => DashboardRoute,
 } as any)
 const DashboardBillingRoute = DashboardBillingRouteImport.update({
@@ -109,27 +102,88 @@ const DashboardBillingRoute = DashboardBillingRouteImport.update({
   path: '/billing',
   getParentRoute: () => DashboardRoute,
 } as any)
-const DashboardAudiobooksRoute = DashboardAudiobooksRouteImport.update({
-  id: '/audiobooks',
-  path: '/audiobooks',
+const DashboardCharactersRoute = DashboardCharactersRouteImport.update({
+  id: '/characters',
+  path: '/characters',
   getParentRoute: () => DashboardRoute,
 } as any)
-const ApiGenerateStoryRoute = ApiGenerateStoryRouteImport.update({
-  id: '/api/generate-story',
-  path: '/api/generate-story',
-  getParentRoute: () => rootRouteImport,
+const DashboardComicsRoute = DashboardComicsRouteImport.update({
+  id: '/comics',
+  path: '/comics',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardDialoguesRoute = DashboardDialoguesRouteImport.update({
+  id: '/dialogues',
+  path: '/dialogues',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardFavoritesRoute = DashboardFavoritesRouteImport.update({
+  id: '/favorites',
+  path: '/favorites',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardHistoryRoute = DashboardHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardImagesRoute = DashboardImagesRouteImport.update({
+  id: '/images',
+  path: '/images',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardInteractiveRoute = DashboardInteractiveRouteImport.update({
+  id: '/interactive',
+  path: '/interactive',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardProfileRoute = DashboardProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardSearchRoute = DashboardSearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardTemplatesRoute = DashboardTemplatesRouteImport.update({
+  id: '/templates',
+  path: '/templates',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardWorldsRoute = DashboardWorldsRouteImport.update({
+  id: '/worlds',
+  path: '/worlds',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardStoriesIndexRoute = DashboardStoriesIndexRouteImport.update({
+  id: '/stories/',
+  path: '/stories/',
+  getParentRoute: () => DashboardRoute,
 } as any)
 const DashboardStoriesStoryIdRoute = DashboardStoriesStoryIdRouteImport.update({
-  id: '/$storyId',
-  path: '/$storyId',
-  getParentRoute: () => DashboardStoriesRoute,
+  id: '/stories/$storyId',
+  path: '/stories/$storyId',
+  getParentRoute: () => DashboardRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRouteWithChildren
+  '/api/generate-audiobook': typeof ApiGenerateAudiobookRoute
+  '/api/generate-character': typeof ApiGenerateCharacterRoute
+  '/api/generate-comic': typeof ApiGenerateComicRoute
+  '/api/generate-dialogue': typeof ApiGenerateDialogueRoute
+  '/api/generate-interactive': typeof ApiGenerateInteractiveRoute
   '/api/generate-story': typeof ApiGenerateStoryRoute
+  '/api/generate-world': typeof ApiGenerateWorldRoute
   '/dashboard/audiobooks': typeof DashboardAudiobooksRoute
   '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/characters': typeof DashboardCharactersRoute
@@ -140,16 +194,24 @@ export interface FileRoutesByFullPath {
   '/dashboard/images': typeof DashboardImagesRoute
   '/dashboard/interactive': typeof DashboardInteractiveRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/search': typeof DashboardSearchRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/stories': typeof DashboardStoriesRouteWithChildren
+  '/dashboard/templates': typeof DashboardTemplatesRoute
   '/dashboard/worlds': typeof DashboardWorldsRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/stories/$storyId': typeof DashboardStoriesStoryIdRoute
+  '/dashboard/stories/': typeof DashboardStoriesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/api/generate-audiobook': typeof ApiGenerateAudiobookRoute
+  '/api/generate-character': typeof ApiGenerateCharacterRoute
+  '/api/generate-comic': typeof ApiGenerateComicRoute
+  '/api/generate-dialogue': typeof ApiGenerateDialogueRoute
+  '/api/generate-interactive': typeof ApiGenerateInteractiveRoute
   '/api/generate-story': typeof ApiGenerateStoryRoute
+  '/api/generate-world': typeof ApiGenerateWorldRoute
   '/dashboard/audiobooks': typeof DashboardAudiobooksRoute
   '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/characters': typeof DashboardCharactersRoute
@@ -160,18 +222,26 @@ export interface FileRoutesByTo {
   '/dashboard/images': typeof DashboardImagesRoute
   '/dashboard/interactive': typeof DashboardInteractiveRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/search': typeof DashboardSearchRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/stories': typeof DashboardStoriesRouteWithChildren
+  '/dashboard/templates': typeof DashboardTemplatesRoute
   '/dashboard/worlds': typeof DashboardWorldsRoute
   '/dashboard': typeof DashboardIndexRoute
   '/dashboard/stories/$storyId': typeof DashboardStoriesStoryIdRoute
+  '/dashboard/stories': typeof DashboardStoriesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRouteWithChildren
+  '/api/generate-audiobook': typeof ApiGenerateAudiobookRoute
+  '/api/generate-character': typeof ApiGenerateCharacterRoute
+  '/api/generate-comic': typeof ApiGenerateComicRoute
+  '/api/generate-dialogue': typeof ApiGenerateDialogueRoute
+  '/api/generate-interactive': typeof ApiGenerateInteractiveRoute
   '/api/generate-story': typeof ApiGenerateStoryRoute
+  '/api/generate-world': typeof ApiGenerateWorldRoute
   '/dashboard/audiobooks': typeof DashboardAudiobooksRoute
   '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/characters': typeof DashboardCharactersRoute
@@ -182,11 +252,13 @@ export interface FileRoutesById {
   '/dashboard/images': typeof DashboardImagesRoute
   '/dashboard/interactive': typeof DashboardInteractiveRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/search': typeof DashboardSearchRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/stories': typeof DashboardStoriesRouteWithChildren
+  '/dashboard/templates': typeof DashboardTemplatesRoute
   '/dashboard/worlds': typeof DashboardWorldsRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/stories/$storyId': typeof DashboardStoriesStoryIdRoute
+  '/dashboard/stories/': typeof DashboardStoriesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -194,7 +266,13 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/api/generate-audiobook'
+    | '/api/generate-character'
+    | '/api/generate-comic'
+    | '/api/generate-dialogue'
+    | '/api/generate-interactive'
     | '/api/generate-story'
+    | '/api/generate-world'
     | '/dashboard/audiobooks'
     | '/dashboard/billing'
     | '/dashboard/characters'
@@ -205,16 +283,24 @@ export interface FileRouteTypes {
     | '/dashboard/images'
     | '/dashboard/interactive'
     | '/dashboard/profile'
+    | '/dashboard/search'
     | '/dashboard/settings'
-    | '/dashboard/stories'
+    | '/dashboard/templates'
     | '/dashboard/worlds'
     | '/dashboard/'
     | '/dashboard/stories/$storyId'
+    | '/dashboard/stories/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
+    | '/api/generate-audiobook'
+    | '/api/generate-character'
+    | '/api/generate-comic'
+    | '/api/generate-dialogue'
+    | '/api/generate-interactive'
     | '/api/generate-story'
+    | '/api/generate-world'
     | '/dashboard/audiobooks'
     | '/dashboard/billing'
     | '/dashboard/characters'
@@ -225,17 +311,25 @@ export interface FileRouteTypes {
     | '/dashboard/images'
     | '/dashboard/interactive'
     | '/dashboard/profile'
+    | '/dashboard/search'
     | '/dashboard/settings'
-    | '/dashboard/stories'
+    | '/dashboard/templates'
     | '/dashboard/worlds'
     | '/dashboard'
     | '/dashboard/stories/$storyId'
+    | '/dashboard/stories'
   id:
     | '__root__'
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/api/generate-audiobook'
+    | '/api/generate-character'
+    | '/api/generate-comic'
+    | '/api/generate-dialogue'
+    | '/api/generate-interactive'
     | '/api/generate-story'
+    | '/api/generate-world'
     | '/dashboard/audiobooks'
     | '/dashboard/billing'
     | '/dashboard/characters'
@@ -246,27 +340,35 @@ export interface FileRouteTypes {
     | '/dashboard/images'
     | '/dashboard/interactive'
     | '/dashboard/profile'
+    | '/dashboard/search'
     | '/dashboard/settings'
-    | '/dashboard/stories'
+    | '/dashboard/templates'
     | '/dashboard/worlds'
     | '/dashboard/'
     | '/dashboard/stories/$storyId'
+    | '/dashboard/stories/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   DashboardRoute: typeof DashboardRouteWithChildren
+  ApiGenerateAudiobookRoute: typeof ApiGenerateAudiobookRoute
+  ApiGenerateCharacterRoute: typeof ApiGenerateCharacterRoute
+  ApiGenerateComicRoute: typeof ApiGenerateComicRoute
+  ApiGenerateDialogueRoute: typeof ApiGenerateDialogueRoute
+  ApiGenerateInteractiveRoute: typeof ApiGenerateInteractiveRoute
   ApiGenerateStoryRoute: typeof ApiGenerateStoryRoute
+  ApiGenerateWorldRoute: typeof ApiGenerateWorldRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -276,11 +378,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/generate-audiobook': {
+      id: '/api/generate-audiobook'
+      path: '/api/generate-audiobook'
+      fullPath: '/api/generate-audiobook'
+      preLoaderRoute: typeof ApiGenerateAudiobookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/generate-character': {
+      id: '/api/generate-character'
+      path: '/api/generate-character'
+      fullPath: '/api/generate-character'
+      preLoaderRoute: typeof ApiGenerateCharacterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/generate-comic': {
+      id: '/api/generate-comic'
+      path: '/api/generate-comic'
+      fullPath: '/api/generate-comic'
+      preLoaderRoute: typeof ApiGenerateComicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/generate-dialogue': {
+      id: '/api/generate-dialogue'
+      path: '/api/generate-dialogue'
+      fullPath: '/api/generate-dialogue'
+      preLoaderRoute: typeof ApiGenerateDialogueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/generate-interactive': {
+      id: '/api/generate-interactive'
+      path: '/api/generate-interactive'
+      fullPath: '/api/generate-interactive'
+      preLoaderRoute: typeof ApiGenerateInteractiveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/generate-story': {
+      id: '/api/generate-story'
+      path: '/api/generate-story'
+      fullPath: '/api/generate-story'
+      preLoaderRoute: typeof ApiGenerateStoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/generate-world': {
+      id: '/api/generate-world'
+      path: '/api/generate-world'
+      fullPath: '/api/generate-world'
+      preLoaderRoute: typeof ApiGenerateWorldRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard/': {
@@ -290,81 +441,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRoute
     }
-    '/dashboard/worlds': {
-      id: '/dashboard/worlds'
-      path: '/worlds'
-      fullPath: '/dashboard/worlds'
-      preLoaderRoute: typeof DashboardWorldsRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/stories': {
-      id: '/dashboard/stories'
-      path: '/stories'
-      fullPath: '/dashboard/stories'
-      preLoaderRoute: typeof DashboardStoriesRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/settings': {
-      id: '/dashboard/settings'
-      path: '/settings'
-      fullPath: '/dashboard/settings'
-      preLoaderRoute: typeof DashboardSettingsRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/profile': {
-      id: '/dashboard/profile'
-      path: '/profile'
-      fullPath: '/dashboard/profile'
-      preLoaderRoute: typeof DashboardProfileRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/interactive': {
-      id: '/dashboard/interactive'
-      path: '/interactive'
-      fullPath: '/dashboard/interactive'
-      preLoaderRoute: typeof DashboardInteractiveRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/images': {
-      id: '/dashboard/images'
-      path: '/images'
-      fullPath: '/dashboard/images'
-      preLoaderRoute: typeof DashboardImagesRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/history': {
-      id: '/dashboard/history'
-      path: '/history'
-      fullPath: '/dashboard/history'
-      preLoaderRoute: typeof DashboardHistoryRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/favorites': {
-      id: '/dashboard/favorites'
-      path: '/favorites'
-      fullPath: '/dashboard/favorites'
-      preLoaderRoute: typeof DashboardFavoritesRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/dialogues': {
-      id: '/dashboard/dialogues'
-      path: '/dialogues'
-      fullPath: '/dashboard/dialogues'
-      preLoaderRoute: typeof DashboardDialoguesRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/comics': {
-      id: '/dashboard/comics'
-      path: '/comics'
-      fullPath: '/dashboard/comics'
-      preLoaderRoute: typeof DashboardComicsRouteImport
-      parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/characters': {
-      id: '/dashboard/characters'
-      path: '/characters'
-      fullPath: '/dashboard/characters'
-      preLoaderRoute: typeof DashboardCharactersRouteImport
+    '/dashboard/audiobooks': {
+      id: '/dashboard/audiobooks'
+      path: '/audiobooks'
+      fullPath: '/dashboard/audiobooks'
+      preLoaderRoute: typeof DashboardAudiobooksRouteImport
       parentRoute: typeof DashboardRoute
     }
     '/dashboard/billing': {
@@ -374,40 +455,106 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardBillingRouteImport
       parentRoute: typeof DashboardRoute
     }
-    '/dashboard/audiobooks': {
-      id: '/dashboard/audiobooks'
-      path: '/audiobooks'
-      fullPath: '/dashboard/audiobooks'
-      preLoaderRoute: typeof DashboardAudiobooksRouteImport
+    '/dashboard/characters': {
+      id: '/dashboard/characters'
+      path: '/characters'
+      fullPath: '/dashboard/characters'
+      preLoaderRoute: typeof DashboardCharactersRouteImport
       parentRoute: typeof DashboardRoute
     }
-    '/api/generate-story': {
-      id: '/api/generate-story'
-      path: '/api/generate-story'
-      fullPath: '/api/generate-story'
-      preLoaderRoute: typeof ApiGenerateStoryRouteImport
-      parentRoute: typeof rootRouteImport
+    '/dashboard/comics': {
+      id: '/dashboard/comics'
+      path: '/comics'
+      fullPath: '/dashboard/comics'
+      preLoaderRoute: typeof DashboardComicsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/dialogues': {
+      id: '/dashboard/dialogues'
+      path: '/dialogues'
+      fullPath: '/dashboard/dialogues'
+      preLoaderRoute: typeof DashboardDialoguesRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/favorites': {
+      id: '/dashboard/favorites'
+      path: '/favorites'
+      fullPath: '/dashboard/favorites'
+      preLoaderRoute: typeof DashboardFavoritesRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/history': {
+      id: '/dashboard/history'
+      path: '/history'
+      fullPath: '/dashboard/history'
+      preLoaderRoute: typeof DashboardHistoryRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/images': {
+      id: '/dashboard/images'
+      path: '/images'
+      fullPath: '/dashboard/images'
+      preLoaderRoute: typeof DashboardImagesRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/interactive': {
+      id: '/dashboard/interactive'
+      path: '/interactive'
+      fullPath: '/dashboard/interactive'
+      preLoaderRoute: typeof DashboardInteractiveRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/profile': {
+      id: '/dashboard/profile'
+      path: '/profile'
+      fullPath: '/dashboard/profile'
+      preLoaderRoute: typeof DashboardProfileRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/search': {
+      id: '/dashboard/search'
+      path: '/search'
+      fullPath: '/dashboard/search'
+      preLoaderRoute: typeof DashboardSearchRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/settings': {
+      id: '/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardSettingsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/templates': {
+      id: '/dashboard/templates'
+      path: '/templates'
+      fullPath: '/dashboard/templates'
+      preLoaderRoute: typeof DashboardTemplatesRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/worlds': {
+      id: '/dashboard/worlds'
+      path: '/worlds'
+      fullPath: '/dashboard/worlds'
+      preLoaderRoute: typeof DashboardWorldsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/stories/': {
+      id: '/dashboard/stories/'
+      path: '/stories'
+      fullPath: '/dashboard/stories/'
+      preLoaderRoute: typeof DashboardStoriesIndexRouteImport
+      parentRoute: typeof DashboardRoute
     }
     '/dashboard/stories/$storyId': {
       id: '/dashboard/stories/$storyId'
-      path: '/$storyId'
+      path: '/stories/$storyId'
       fullPath: '/dashboard/stories/$storyId'
       preLoaderRoute: typeof DashboardStoriesStoryIdRouteImport
-      parentRoute: typeof DashboardStoriesRoute
+      parentRoute: typeof DashboardRoute
     }
   }
 }
-
-interface DashboardStoriesRouteChildren {
-  DashboardStoriesStoryIdRoute: typeof DashboardStoriesStoryIdRoute
-}
-
-const DashboardStoriesRouteChildren: DashboardStoriesRouteChildren = {
-  DashboardStoriesStoryIdRoute: DashboardStoriesStoryIdRoute,
-}
-
-const DashboardStoriesRouteWithChildren =
-  DashboardStoriesRoute._addFileChildren(DashboardStoriesRouteChildren)
 
 interface DashboardRouteChildren {
   DashboardAudiobooksRoute: typeof DashboardAudiobooksRoute
@@ -420,10 +567,13 @@ interface DashboardRouteChildren {
   DashboardImagesRoute: typeof DashboardImagesRoute
   DashboardInteractiveRoute: typeof DashboardInteractiveRoute
   DashboardProfileRoute: typeof DashboardProfileRoute
+  DashboardSearchRoute: typeof DashboardSearchRoute
   DashboardSettingsRoute: typeof DashboardSettingsRoute
-  DashboardStoriesRoute: typeof DashboardStoriesRouteWithChildren
+  DashboardTemplatesRoute: typeof DashboardTemplatesRoute
   DashboardWorldsRoute: typeof DashboardWorldsRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardStoriesStoryIdRoute: typeof DashboardStoriesStoryIdRoute
+  DashboardStoriesIndexRoute: typeof DashboardStoriesIndexRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
@@ -437,10 +587,13 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardImagesRoute: DashboardImagesRoute,
   DashboardInteractiveRoute: DashboardInteractiveRoute,
   DashboardProfileRoute: DashboardProfileRoute,
+  DashboardSearchRoute: DashboardSearchRoute,
   DashboardSettingsRoute: DashboardSettingsRoute,
-  DashboardStoriesRoute: DashboardStoriesRouteWithChildren,
+  DashboardTemplatesRoute: DashboardTemplatesRoute,
   DashboardWorldsRoute: DashboardWorldsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
+  DashboardStoriesStoryIdRoute: DashboardStoriesStoryIdRoute,
+  DashboardStoriesIndexRoute: DashboardStoriesIndexRoute,
 }
 
 const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
@@ -451,8 +604,24 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   DashboardRoute: DashboardRouteWithChildren,
+  ApiGenerateAudiobookRoute: ApiGenerateAudiobookRoute,
+  ApiGenerateCharacterRoute: ApiGenerateCharacterRoute,
+  ApiGenerateComicRoute: ApiGenerateComicRoute,
+  ApiGenerateDialogueRoute: ApiGenerateDialogueRoute,
+  ApiGenerateInteractiveRoute: ApiGenerateInteractiveRoute,
   ApiGenerateStoryRoute: ApiGenerateStoryRoute,
+  ApiGenerateWorldRoute: ApiGenerateWorldRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

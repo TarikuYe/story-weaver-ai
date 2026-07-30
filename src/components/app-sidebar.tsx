@@ -15,6 +15,8 @@ import {
   CreditCard,
   User as UserIcon,
   Sparkles,
+  LayoutTemplate,
+  Search,
 } from "lucide-react";
 import {
   Sidebar,
@@ -41,8 +43,10 @@ const create = [
   { title: "Interactive", url: "/dashboard/interactive", icon: GitBranch },
 ];
 const library = [
+  { title: "Templates", url: "/dashboard/templates", icon: LayoutTemplate },
   { title: "Favorites", url: "/dashboard/favorites", icon: Star },
   { title: "History", url: "/dashboard/history", icon: History },
+  { title: "Search", url: "/dashboard/search", icon: Search },
 ];
 const account = [
   { title: "Profile", url: "/dashboard/profile", icon: UserIcon },

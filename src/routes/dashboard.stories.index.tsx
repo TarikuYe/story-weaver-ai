@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/dashboard/stories")({
+export const Route = createFileRoute("/dashboard/stories/")({
   component: StoriesPage,
 });
 
@@ -24,6 +24,7 @@ type StoryRow = {
   id: string;
   title: string;
   genre: string | null;
+  tone: string | null;
   status: string;
   created_at: string;
 };
@@ -79,7 +80,7 @@ function StoriesPage() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("stories")
-        .select("id, title, genre, status, created_at")
+        .select("id, title, genre, tone, status, created_at")
         .order("created_at", { ascending: false });
       if (error) throw error;
       return data as StoryRow[];
@@ -291,7 +292,7 @@ function StoriesPage() {
                       <div>
                         <div className="font-medium">{s.title}</div>
                         <div className="text-xs text-muted-foreground">
-                          {s.genre ?? "—"} · {new Date(s.created_at).toLocaleDateString()}
+                          {[s.genre, s.tone].filter(Boolean).join(" · ") || "—"} · {new Date(s.created_at).toLocaleDateString()}
                         </div>
                       </div>
                     </div>

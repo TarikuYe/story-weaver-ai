@@ -7,8 +7,6 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instantiate createClient with right options
-  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "14.5"
   }
@@ -58,6 +56,378 @@ export type Database = {
           },
         ]
       }
+      characters: {
+        Row: {
+          id: string
+          user_id: string
+          story_id: string | null
+          name: string
+          age: string | null
+          occupation: string | null
+          appearance: string | null
+          backstory: string | null
+          strengths: string | null
+          weaknesses: string | null
+          skills: string | null
+          goals: string | null
+          relationships: string | null
+          personality: string | null
+          clothing: string | null
+          voice_style: string | null
+          portrait_url: string | null
+          genre: string | null
+          prompt: string
+          status: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          story_id?: string | null
+          name?: string
+          age?: string | null
+          occupation?: string | null
+          appearance?: string | null
+          backstory?: string | null
+          strengths?: string | null
+          weaknesses?: string | null
+          skills?: string | null
+          goals?: string | null
+          relationships?: string | null
+          personality?: string | null
+          clothing?: string | null
+          voice_style?: string | null
+          portrait_url?: string | null
+          genre?: string | null
+          prompt: string
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          story_id?: string | null
+          name?: string
+          age?: string | null
+          occupation?: string | null
+          appearance?: string | null
+          backstory?: string | null
+          strengths?: string | null
+          weaknesses?: string | null
+          skills?: string | null
+          goals?: string | null
+          relationships?: string | null
+          personality?: string | null
+          clothing?: string | null
+          voice_style?: string | null
+          portrait_url?: string | null
+          genre?: string | null
+          prompt?: string
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      worlds: {
+        Row: {
+          id: string
+          user_id: string
+          name: string
+          type: string | null
+          prompt: string
+          overview: string | null
+          geography: string | null
+          history: string | null
+          politics: string | null
+          religion: string | null
+          magic_system: string | null
+          technology: string | null
+          economy: string | null
+          climate: string | null
+          population: string | null
+          notable_locations: Json | null
+          factions: Json | null
+          status: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          name?: string
+          type?: string | null
+          prompt: string
+          overview?: string | null
+          geography?: string | null
+          history?: string | null
+          politics?: string | null
+          religion?: string | null
+          magic_system?: string | null
+          technology?: string | null
+          economy?: string | null
+          climate?: string | null
+          population?: string | null
+          notable_locations?: Json | null
+          factions?: Json | null
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          name?: string
+          type?: string | null
+          prompt?: string
+          overview?: string | null
+          geography?: string | null
+          history?: string | null
+          politics?: string | null
+          religion?: string | null
+          magic_system?: string | null
+          technology?: string | null
+          economy?: string | null
+          climate?: string | null
+          population?: string | null
+          notable_locations?: Json | null
+          factions?: Json | null
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      dialogues: {
+        Row: {
+          id: string
+          user_id: string
+          story_id: string | null
+          title: string
+          characters_involved: string | null
+          emotion: string | null
+          setting: string | null
+          content: string | null
+          prompt: string
+          status: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          story_id?: string | null
+          title?: string
+          characters_involved?: string | null
+          emotion?: string | null
+          setting?: string | null
+          content?: string | null
+          prompt: string
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          story_id?: string | null
+          title?: string
+          characters_involved?: string | null
+          emotion?: string | null
+          setting?: string | null
+          content?: string | null
+          prompt?: string
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      comic_projects: {
+        Row: {
+          id: string
+          user_id: string
+          story_id: string | null
+          title: string
+          art_style: string | null
+          panel_count: number
+          panels: Json | null
+          prompt: string
+          status: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          story_id?: string | null
+          title?: string
+          art_style?: string | null
+          panel_count?: number
+          panels?: Json | null
+          prompt: string
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          story_id?: string | null
+          title?: string
+          art_style?: string | null
+          panel_count?: number
+          panels?: Json | null
+          prompt?: string
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      generated_images: {
+        Row: {
+          id: string
+          user_id: string
+          story_id: string | null
+          subject: string
+          style: string | null
+          prompt: string
+          image_url: string | null
+          status: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          story_id?: string | null
+          subject?: string
+          style?: string | null
+          prompt: string
+          image_url?: string | null
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          story_id?: string | null
+          subject?: string
+          style?: string | null
+          prompt?: string
+          image_url?: string | null
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      interactive_stories: {
+        Row: {
+          id: string
+          user_id: string
+          title: string
+          genre: string | null
+          prompt: string
+          opening: string | null
+          nodes: Json | null
+          status: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          title?: string
+          genre?: string | null
+          prompt: string
+          opening?: string | null
+          nodes?: Json | null
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          title?: string
+          genre?: string | null
+          prompt?: string
+          opening?: string | null
+          nodes?: Json | null
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      audiobooks: {
+        Row: {
+          id: string
+          user_id: string
+          story_id: string | null
+          title: string
+          narrator_style: string | null
+          chapters_audio: Json | null
+          prompt: string
+          status: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          story_id?: string | null
+          title?: string
+          narrator_style?: string | null
+          chapters_audio?: Json | null
+          prompt: string
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          story_id?: string | null
+          title?: string
+          narrator_style?: string | null
+          chapters_audio?: Json | null
+          prompt?: string
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      favorites: {
+        Row: {
+          id: string
+          user_id: string
+          item_type: string
+          item_id: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          item_type: string
+          item_id: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          item_type?: string
+          item_id?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -67,6 +437,7 @@ export type Database = {
           display_name: string | null
           id: string
           language: string
+          subscription: string
           updated_at: string
           username: string | null
         }
@@ -78,6 +449,7 @@ export type Database = {
           display_name?: string | null
           id: string
           language?: string
+          subscription?: string
           updated_at?: string
           username?: string | null
         }
@@ -89,6 +461,7 @@ export type Database = {
           display_name?: string | null
           id?: string
           language?: string
+          subscription?: string
           updated_at?: string
           username?: string | null
         }
@@ -189,7 +562,6 @@ export type Database = {
 }
 
 type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
-
 type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
 
 export type Tables<

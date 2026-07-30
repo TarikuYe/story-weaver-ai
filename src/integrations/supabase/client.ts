@@ -2,6 +2,21 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 
+// Purge any stale Supabase auth tokens from other projects (e.g. Lovable-hosted
+// sessions) before the client initialises. Runs synchronously at module load
+// time so the correct project credentials are used from the first call.
+if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+  const correctUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
+  const correctProjectId = correctUrl?.replace('https://', '').split('.')[0];
+  if (correctProjectId) {
+    Object.keys(localStorage).forEach((key) => {
+      if (key.startsWith('sb-') && !key.startsWith(`sb-${correctProjectId}`)) {
+        localStorage.removeItem(key);
+      }
+    });
+  }
+}
+
 function isNewSupabaseApiKey(value: string): boolean {
   return value.startsWith('sb_publishable_') || value.startsWith('sb_secret_');
 }

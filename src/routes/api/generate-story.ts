@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { createClient } from "@supabase/supabase-js";
 import { generateText, Output, NoObjectGeneratedError } from "ai";
 import { z } from "zod";
-import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
+import { createAiProvider } from "@/lib/ai-gateway.server";
+import { ADVANCED_AUTHOR_PROMPT } from "@/lib/prompts";
 
 const InputSchema = z.object({
   prompt: z.string().min(3).max(4000),
@@ -22,12 +23,7 @@ const LENGTH_MAP = {
 const OutlineSchema = z.object({
   title: z.string(),
   logline: z.string(),
-  chapters: z.array(
-    z.object({
-      title: z.string(),
-      summary: z.string(),
-    }),
-  ),
+  chapters: z.array(z.object({ title: z.string(), summary: z.string() })),
 });
 
 export const Route = createFileRoute("/api/generate-story")({
@@ -40,9 +36,19 @@ export const Route = createFileRoute("/api/generate-story")({
 
         const supabaseUrl = process.env.SUPABASE_URL;
         const supabaseAnon = process.env.SUPABASE_PUBLISHABLE_KEY;
-        const lovableKey = process.env.LOVABLE_API_KEY;
-        if (!supabaseUrl || !supabaseAnon || !lovableKey) {
-          return new Response("Server misconfigured", { status: 500 });
+        if (!supabaseUrl || !supabaseAnon) {
+          return new Response("Server misconfigured: missing Supabase env vars", { status: 500 });
+        }
+
+        let model: ReturnType<ReturnType<typeof createAiProvider>>;
+        try {
+          const provider = createAiProvider();
+          model = provider();
+        } catch (err) {
+          return new Response(
+            JSON.stringify({ error: err instanceof Error ? err.message : "AI provider not configured" }),
+            { status: 500, headers: { "Content-Type": "application/json" } },
+          );
         }
 
         const supabase = createClient(supabaseUrl, supabaseAnon, {
@@ -65,7 +71,6 @@ export const Route = createFileRoute("/api/generate-story")({
 
         const { chapters: chapterCount, wordsPerChapter } = LENGTH_MAP[body.length];
 
-        // Insert story row
         const { data: storyRow, error: storyErr } = await supabase
           .from("stories")
           .insert({
@@ -81,6 +86,7 @@ export const Route = createFileRoute("/api/generate-story")({
           })
           .select("id")
           .single();
+
         if (storyErr || !storyRow) {
           return new Response(JSON.stringify({ error: storyErr?.message ?? "DB error" }), {
             status: 500,
@@ -90,10 +96,6 @@ export const Route = createFileRoute("/api/generate-story")({
         const storyId = storyRow.id as string;
 
         try {
-          const gateway = createLovableAiGatewayProvider(lovableKey);
-          const model = gateway("google/gemini-3.6-flash");
-
-          // 1. Generate outline
           const outlinePrompt = `You are a master storyteller. Design a compelling story based on:
 
 Idea: ${body.prompt}
@@ -105,26 +107,27 @@ Characters the user wants involved: ${body.characters || "(none specified — in
 Return a JSON object with:
 - title: an evocative title
 - logline: a one-sentence hook
-- chapters: an array of exactly ${chapterCount} chapters, each with title and a 2-3 sentence summary describing what happens.
+- chapters: an array of exactly ${chapterCount} chapters, each with "title" and a 2-3 sentence "summary" describing what happens.
 
 Write the title, logline, chapter titles, and summaries in ${body.language}.`;
 
           let outline: z.infer<typeof OutlineSchema>;
           try {
-            const { output } = await generateText({
+            const { text } = await generateText({
               model,
-              output: Output.object({ schema: OutlineSchema }),
-              prompt: outlinePrompt,
+              prompt: outlinePrompt + "\n\nCRITICAL: Return ONLY valid JSON and absolutely no other text. Do not wrap in markdown blocks.",
             });
-            outline = output;
+            
+            // Attempt to extract JSON in case the model ignored the instruction and added markdown
+            const jsonMatch = text.match(/\{[\s\S]*\}/);
+            const rawJson = jsonMatch ? jsonMatch[0] : text;
+            
+            outline = OutlineSchema.parse(JSON.parse(rawJson));
           } catch (err) {
-            if (NoObjectGeneratedError.isInstance(err)) {
-              throw new Error("Failed to generate outline. Please try again.");
-            }
-            throw err;
+            console.error("Outline parsing failed. Raw error:", err);
+            throw new Error("Failed to generate outline. Please try again.");
           }
 
-          // Cap chapters defensively
           const outlineChapters = outline.chapters.slice(0, chapterCount);
 
           await supabase
@@ -132,43 +135,122 @@ Write the title, logline, chapter titles, and summaries in ${body.language}.`;
             .update({ title: outline.title, outline: outline as unknown as object })
             .eq("id", storyId);
 
-          // 2. Generate each chapter
+          let storyBible = "No story bible yet. Create one after this chapter based on the outline.";
+          let previousSummaries = "No previous chapters.";
+
           for (let i = 0; i < outlineChapters.length; i++) {
             const ch = outlineChapters[i];
-            const prior = outlineChapters
-              .slice(0, i)
-              .map((c, idx) => `Chapter ${idx + 1}: ${c.title} — ${c.summary}`)
-              .join("\n");
 
-            const chapterPrompt = `You are writing "${outline.title}", a ${body.genre || "story"} with a ${body.tone || "compelling"} tone, in ${body.language}.
+            const chapterPrompt = `${ADVANCED_AUTHOR_PROMPT}
 
-Full outline so far:
-${prior || "(this is the opening chapter)"}
+====================================================
+CURRENT STATE
+====================================================
+Title: "${outline.title}"
+Genre: ${body.genre || "author's choice"}
+Tone: ${body.tone || "author's choice"}
+Language: ${body.language}
 
-Now write Chapter ${i + 1}: "${ch.title}".
+CURRENT STORY BIBLE:
+${storyBible}
+
+PREVIOUS CHAPTER SUMMARIES:
+${previousSummaries}
+
+====================================================
+YOUR TASK
+====================================================
+Write Chapter ${i + 1}: "${ch.title}".
 Chapter summary to expand: ${ch.summary}
+Word count target: approximately ${wordsPerChapter} words of vivid, immersive prose.
 
-Write approximately ${wordsPerChapter} words of vivid, immersive prose. Use markdown paragraphs. Do NOT include the chapter number or title as a heading — only the prose. Write in ${body.language}.`;
+====================================================
+OUTPUT FORMAT (CRITICAL)
+====================================================
+Return your response ENTIRELY inside XML tags. Do not include any text outside these tags.
 
-            const { text } = await generateText({
-              model,
-              prompt: chapterPrompt,
-            });
+<chapter_title>Title here</chapter_title>
+<chapter_summary>1-2 sentence summary of this chapter</chapter_summary>
+<main_scenes>Bullet points of main scenes</main_scenes>
+<chapter_content>
+The full novel-quality prose here... (use markdown paragraphs, do NOT include the chapter title as a heading)
+</chapter_content>
+<character_notes>Development notes</character_notes>
+<mysteries>New mysteries introduced</mysteries>
+<questions_answered>Questions answered</questions_answered>
+<foreshadowing>Foreshadowing planted</foreshadowing>
+<story_bible_updates>
+FULL, complete, updated Story Bible here. Do not output a diff, output the entire updated Story Bible so the next chapter remembers everything.
+</story_bible_updates>
+<preview>Preview sentence for the next chapter</preview>
+`;
 
-            const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
+            const { text } = await generateText({ model, prompt: chapterPrompt });
+
+            const extractTag = (tag: string) => {
+              const regex = new RegExp(`<${tag}>([\\s\\S]*?)</${tag}>`, 'i');
+              return text.match(regex)?.[1]?.trim() || "";
+            };
+
+            const chapterTitle = extractTag("chapter_title") || ch.title;
+            const chapterSummary = extractTag("chapter_summary");
+            const chapterContent = extractTag("chapter_content") || text; // Fallback to raw text if tag fails
+            const mainScenes = extractTag("main_scenes");
+            const charNotes = extractTag("character_notes");
+            const mysteries = extractTag("mysteries");
+            const questionsAnswered = extractTag("questions_answered");
+            const foreshadowing = extractTag("foreshadowing");
+            const newStoryBible = extractTag("story_bible_updates");
+            const preview = extractTag("preview");
+
+            // Update state for next iterations
+            if (newStoryBible && newStoryBible.length > 50) {
+              storyBible = newStoryBible;
+            }
+            if (chapterSummary) {
+              if (previousSummaries === "No previous chapters.") previousSummaries = "";
+              previousSummaries += `\nChapter ${i + 1} (${chapterTitle}): ${chapterSummary}`;
+            }
+
+            const wordCount = chapterContent.trim().split(/\s+/).filter(Boolean).length;
+
+            const fullMarkdown = `${chapterContent}
+
+---
+### 📝 Author's Notes
+
+**Chapter Summary:**
+${chapterSummary || ch.summary}
+
+**Main Scenes:**
+${mainScenes}
+
+**Character Development:**
+${charNotes}
+
+**Mysteries Introduced:**
+${mysteries}
+
+**Questions Answered:**
+${questionsAnswered}
+
+**Foreshadowing:**
+${foreshadowing}
+
+**Preview:**
+*${preview}*`;
 
             await supabase.from("chapters").insert({
               story_id: storyId,
               user_id: userId,
               chapter_number: i + 1,
-              title: ch.title,
-              content: text.trim(),
+              title: chapterTitle,
+              content: fullMarkdown.trim(),
               word_count: wordCount,
             });
           }
 
           await supabase.from("stories").update({ status: "complete" }).eq("id", storyId);
-
           return Response.json({ storyId });
         } catch (err) {
           console.error("Story generation failed:", err);
