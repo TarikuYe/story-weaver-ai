@@ -17,6 +17,7 @@ import {
   Sparkles,
   LayoutTemplate,
   Search,
+  Baby,
 } from "lucide-react";
 import {
   Sidebar,
@@ -40,6 +41,7 @@ const create = [
   { title: "Dialogues", url: "/dashboard/dialogues", icon: MessageSquare },
   { title: "Comics", url: "/dashboard/comics", icon: Wand2 },
   { title: "Audiobooks", url: "/dashboard/audiobooks", icon: Mic },
+  { title: "Kid Stories", url: "/dashboard/kid-stories", icon: Baby },
   { title: "Interactive", url: "/dashboard/interactive", icon: GitBranch },
 ];
 const library = [

@@ -17,6 +17,7 @@ import { Route as ApiGenerateCharacterRouteImport } from './routes/api/generate-
 import { Route as ApiGenerateComicRouteImport } from './routes/api/generate-comic'
 import { Route as ApiGenerateDialogueRouteImport } from './routes/api/generate-dialogue'
 import { Route as ApiGenerateInteractiveRouteImport } from './routes/api/generate-interactive'
+import { Route as ApiGenerateKidStoryRouteImport } from './routes/api/generate-kid-story'
 import { Route as ApiGenerateStoryRouteImport } from './routes/api/generate-story'
 import { Route as ApiGenerateWorldRouteImport } from './routes/api/generate-world'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
@@ -29,6 +30,7 @@ import { Route as DashboardFavoritesRouteImport } from './routes/dashboard.favor
 import { Route as DashboardHistoryRouteImport } from './routes/dashboard.history'
 import { Route as DashboardImagesRouteImport } from './routes/dashboard.images'
 import { Route as DashboardInteractiveRouteImport } from './routes/dashboard.interactive'
+import { Route as DashboardKidStoriesRouteImport } from './routes/dashboard.kid-stories'
 import { Route as DashboardProfileRouteImport } from './routes/dashboard.profile'
 import { Route as DashboardSearchRouteImport } from './routes/dashboard.search'
 import { Route as DashboardSettingsRouteImport } from './routes/dashboard.settings'
@@ -75,6 +77,11 @@ const ApiGenerateDialogueRoute = ApiGenerateDialogueRouteImport.update({
 const ApiGenerateInteractiveRoute = ApiGenerateInteractiveRouteImport.update({
   id: '/api/generate-interactive',
   path: '/api/generate-interactive',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGenerateKidStoryRoute = ApiGenerateKidStoryRouteImport.update({
+  id: '/api/generate-kid-story',
+  path: '/api/generate-kid-story',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiGenerateStoryRoute = ApiGenerateStoryRouteImport.update({
@@ -137,6 +144,11 @@ const DashboardInteractiveRoute = DashboardInteractiveRouteImport.update({
   path: '/interactive',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardKidStoriesRoute = DashboardKidStoriesRouteImport.update({
+  id: '/kid-stories',
+  path: '/kid-stories',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardProfileRoute = DashboardProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
@@ -182,6 +194,7 @@ export interface FileRoutesByFullPath {
   '/api/generate-comic': typeof ApiGenerateComicRoute
   '/api/generate-dialogue': typeof ApiGenerateDialogueRoute
   '/api/generate-interactive': typeof ApiGenerateInteractiveRoute
+  '/api/generate-kid-story': typeof ApiGenerateKidStoryRoute
   '/api/generate-story': typeof ApiGenerateStoryRoute
   '/api/generate-world': typeof ApiGenerateWorldRoute
   '/dashboard/audiobooks': typeof DashboardAudiobooksRoute
@@ -193,6 +206,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/history': typeof DashboardHistoryRoute
   '/dashboard/images': typeof DashboardImagesRoute
   '/dashboard/interactive': typeof DashboardInteractiveRoute
+  '/dashboard/kid-stories': typeof DashboardKidStoriesRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/search': typeof DashboardSearchRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
@@ -210,6 +224,7 @@ export interface FileRoutesByTo {
   '/api/generate-comic': typeof ApiGenerateComicRoute
   '/api/generate-dialogue': typeof ApiGenerateDialogueRoute
   '/api/generate-interactive': typeof ApiGenerateInteractiveRoute
+  '/api/generate-kid-story': typeof ApiGenerateKidStoryRoute
   '/api/generate-story': typeof ApiGenerateStoryRoute
   '/api/generate-world': typeof ApiGenerateWorldRoute
   '/dashboard/audiobooks': typeof DashboardAudiobooksRoute
@@ -221,6 +236,7 @@ export interface FileRoutesByTo {
   '/dashboard/history': typeof DashboardHistoryRoute
   '/dashboard/images': typeof DashboardImagesRoute
   '/dashboard/interactive': typeof DashboardInteractiveRoute
+  '/dashboard/kid-stories': typeof DashboardKidStoriesRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/search': typeof DashboardSearchRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
@@ -240,6 +256,7 @@ export interface FileRoutesById {
   '/api/generate-comic': typeof ApiGenerateComicRoute
   '/api/generate-dialogue': typeof ApiGenerateDialogueRoute
   '/api/generate-interactive': typeof ApiGenerateInteractiveRoute
+  '/api/generate-kid-story': typeof ApiGenerateKidStoryRoute
   '/api/generate-story': typeof ApiGenerateStoryRoute
   '/api/generate-world': typeof ApiGenerateWorldRoute
   '/dashboard/audiobooks': typeof DashboardAudiobooksRoute
@@ -251,6 +268,7 @@ export interface FileRoutesById {
   '/dashboard/history': typeof DashboardHistoryRoute
   '/dashboard/images': typeof DashboardImagesRoute
   '/dashboard/interactive': typeof DashboardInteractiveRoute
+  '/dashboard/kid-stories': typeof DashboardKidStoriesRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/search': typeof DashboardSearchRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
@@ -271,6 +289,7 @@ export interface FileRouteTypes {
     | '/api/generate-comic'
     | '/api/generate-dialogue'
     | '/api/generate-interactive'
+    | '/api/generate-kid-story'
     | '/api/generate-story'
     | '/api/generate-world'
     | '/dashboard/audiobooks'
@@ -282,6 +301,7 @@ export interface FileRouteTypes {
     | '/dashboard/history'
     | '/dashboard/images'
     | '/dashboard/interactive'
+    | '/dashboard/kid-stories'
     | '/dashboard/profile'
     | '/dashboard/search'
     | '/dashboard/settings'
@@ -299,6 +319,7 @@ export interface FileRouteTypes {
     | '/api/generate-comic'
     | '/api/generate-dialogue'
     | '/api/generate-interactive'
+    | '/api/generate-kid-story'
     | '/api/generate-story'
     | '/api/generate-world'
     | '/dashboard/audiobooks'
@@ -310,6 +331,7 @@ export interface FileRouteTypes {
     | '/dashboard/history'
     | '/dashboard/images'
     | '/dashboard/interactive'
+    | '/dashboard/kid-stories'
     | '/dashboard/profile'
     | '/dashboard/search'
     | '/dashboard/settings'
@@ -328,6 +350,7 @@ export interface FileRouteTypes {
     | '/api/generate-comic'
     | '/api/generate-dialogue'
     | '/api/generate-interactive'
+    | '/api/generate-kid-story'
     | '/api/generate-story'
     | '/api/generate-world'
     | '/dashboard/audiobooks'
@@ -339,6 +362,7 @@ export interface FileRouteTypes {
     | '/dashboard/history'
     | '/dashboard/images'
     | '/dashboard/interactive'
+    | '/dashboard/kid-stories'
     | '/dashboard/profile'
     | '/dashboard/search'
     | '/dashboard/settings'
@@ -358,6 +382,7 @@ export interface RootRouteChildren {
   ApiGenerateComicRoute: typeof ApiGenerateComicRoute
   ApiGenerateDialogueRoute: typeof ApiGenerateDialogueRoute
   ApiGenerateInteractiveRoute: typeof ApiGenerateInteractiveRoute
+  ApiGenerateKidStoryRoute: typeof ApiGenerateKidStoryRoute
   ApiGenerateStoryRoute: typeof ApiGenerateStoryRoute
   ApiGenerateWorldRoute: typeof ApiGenerateWorldRoute
 }
@@ -418,6 +443,13 @@ declare module '@tanstack/react-router' {
       path: '/api/generate-interactive'
       fullPath: '/api/generate-interactive'
       preLoaderRoute: typeof ApiGenerateInteractiveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/generate-kid-story': {
+      id: '/api/generate-kid-story'
+      path: '/api/generate-kid-story'
+      fullPath: '/api/generate-kid-story'
+      preLoaderRoute: typeof ApiGenerateKidStoryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/generate-story': {
@@ -504,6 +536,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardInteractiveRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/kid-stories': {
+      id: '/dashboard/kid-stories'
+      path: '/kid-stories'
+      fullPath: '/dashboard/kid-stories'
+      preLoaderRoute: typeof DashboardKidStoriesRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/profile': {
       id: '/dashboard/profile'
       path: '/profile'
@@ -566,6 +605,7 @@ interface DashboardRouteChildren {
   DashboardHistoryRoute: typeof DashboardHistoryRoute
   DashboardImagesRoute: typeof DashboardImagesRoute
   DashboardInteractiveRoute: typeof DashboardInteractiveRoute
+  DashboardKidStoriesRoute: typeof DashboardKidStoriesRoute
   DashboardProfileRoute: typeof DashboardProfileRoute
   DashboardSearchRoute: typeof DashboardSearchRoute
   DashboardSettingsRoute: typeof DashboardSettingsRoute
@@ -586,6 +626,7 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardHistoryRoute: DashboardHistoryRoute,
   DashboardImagesRoute: DashboardImagesRoute,
   DashboardInteractiveRoute: DashboardInteractiveRoute,
+  DashboardKidStoriesRoute: DashboardKidStoriesRoute,
   DashboardProfileRoute: DashboardProfileRoute,
   DashboardSearchRoute: DashboardSearchRoute,
   DashboardSettingsRoute: DashboardSettingsRoute,
@@ -609,6 +650,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiGenerateComicRoute: ApiGenerateComicRoute,
   ApiGenerateDialogueRoute: ApiGenerateDialogueRoute,
   ApiGenerateInteractiveRoute: ApiGenerateInteractiveRoute,
+  ApiGenerateKidStoryRoute: ApiGenerateKidStoryRoute,
   ApiGenerateStoryRoute: ApiGenerateStoryRoute,
   ApiGenerateWorldRoute: ApiGenerateWorldRoute,
 }
